@@ -5,11 +5,11 @@ class Api::ApplicationController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
     rescue_from StandardError, with: :standard_error
 
-    # def current_user
-    #     @current_user ||= User.find_by_id session[:user_id]
-    # end
+    def current_user
+        @current_user ||= User.find_by_id session[:user_id]
+    end
 
-    # helper_method :current_user
+    helper_method :current_user
 
     def not_found
         render(
