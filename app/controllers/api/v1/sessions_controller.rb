@@ -2,8 +2,14 @@ class Api::V1::SessionsController < Api::ApplicationController
     def create
         user = User.find_by(email: params[:username_or_email]) || User.find_by(username: params[:username_or_email])
         if user&.authenticate(params[:password])
+            puts "$$$$$$"
+            puts user.id
+            puts "$$$$$$"
             session[:user_id] = user.id
             render(json: user)
+            puts "$$$$$$"
+            puts "session created"
+            puts "$$$$$$"
         else
             render(
                 json: {
