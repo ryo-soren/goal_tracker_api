@@ -7,8 +7,9 @@ class Api::V1::SessionsController < Api::ApplicationController
             puts "$$$$$$"
             session[:user_id] = user.id
             render(json: user)
+            found_user = User.find_by_id session[:user_id]
             puts "$$$$$$"
-            puts "session created sessiono id:#{session[:user_id]}"
+            puts "session created #{found_user.username}"
             puts "$$$$$$"
         else
             render(
