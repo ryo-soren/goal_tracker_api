@@ -20,6 +20,7 @@ Bundler.require(*Rails.groups)
 
 module GoalTrackerApi
   class Application < Rails::Application
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_goal_tracker_api_session', secure: Rails.env.production?, domain: :all, path: '/', expire_after: 1.day
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
