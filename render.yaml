@@ -1,0 +1,23 @@
+databases:
+  - name: goal_tracker_api
+    databaseName: goal_tracker_api
+    user: goal_tracker_api
+    plan: free
+
+services:
+  - type: web
+    name: goal_tracker_api
+    runtime: ruby
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    # preDeployCommand: "./bin/rails db:migrate" # preDeployCommand only available on paid instance types
+    startCommand: "./bin/rails server"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: goal_tracker_api
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: 2 # sensible default
