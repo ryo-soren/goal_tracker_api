@@ -10,13 +10,7 @@ class Api::ApplicationController < ApplicationController
     # end
 
     # helper_method :current_user
-    helper_method :current_user
 
-    def current_user
-      return unless session[:user_id]
-      @current_user ||= User.find(session[:user_id])
-    end
- 
     def not_found
         render(
             json: {

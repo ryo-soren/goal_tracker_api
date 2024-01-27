@@ -24,7 +24,6 @@ class Api::V1::SessionsController < Api::ApplicationController
     def current
         puts "$$$$$$"
         puts current_user
-        puts session[:user_id]
         puts "$$$$$$"
         render(json: current_user)
     end
