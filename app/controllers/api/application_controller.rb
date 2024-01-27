@@ -6,6 +6,9 @@ class Api::ApplicationController < ApplicationController
     rescue_from StandardError, with: :standard_error
 
     def current_user
+        puts "%%%%%%"
+        puts session[:user_id]
+        puts "%%%%%%"
         @current_user ||= User.find_by_id session[:user_id]
     end
 
