@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: goal_tracker_api_production
-  username: goal_tracker_api
-  password: <%= ENV["GOAL_TRACKER_API_DATABASE_PASSWORD"] %>
+  # username: goal_tracker_api
+  # password: <%= ENV["GOAL_TRACKER_API_DATABASE_PASSWORD"] %>
