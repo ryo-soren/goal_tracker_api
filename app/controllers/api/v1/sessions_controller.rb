@@ -5,7 +5,7 @@ class Api::V1::SessionsController < Api::ApplicationController
             session[:user_id] = user.id
             render(json: user)
             puts "$$$$$$"
-            puts user.name
+            puts user.firstname
             puts session[:user_id]
             puts "$$$$$$"
         else
