@@ -18,10 +18,9 @@ Rails.application.configure do
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
-  # config.session_store :cookie_store, key: '_your_app_session', domain: :all
-  # config.middleware.use ActionDispatch::Cookies
+  config.session_store :cookie_store, key: '_goal_tracker_api_session', domain: :all
 
-  # config.middleware.use config.session_store, config.session_options
+  config.middleware.use config.session_store, config.session_options
   
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.

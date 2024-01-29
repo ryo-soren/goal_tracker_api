@@ -4,6 +4,10 @@ class Api::V1::SessionsController < Api::ApplicationController
         if user&.authenticate(params[:password])
             session[:user_id] = user.id
             render(json: user)
+            puts "$$$$$$"
+            puts user.name
+            puts session[:user_id]
+            puts "$$$$$$"
         else
             render(
                 json: {
