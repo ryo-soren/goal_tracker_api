@@ -1,34 +1,21 @@
 class Api::V1::SessionsController < Api::ApplicationController
-    def create
+     def create
         user = User.find_by(email: params[:username_or_email]) || User.find_by(username: params[:username_or_email])
         if user&.authenticate(params[:password])
             session[:user_id] = user.id
-            render(json: user)
-            puts "$$$$$$"
-            puts user.first_name
-            puts session[:user_id]
-            puts "$$$$$$"
+            render json: current_user, status: 200
         else
-            render(
-                json: {
-                    status: 401,
-                    message: "Invalid credentials"
-                },
-                status: 401
-            )
+            render json: {error: "Invalid username or password"}, status: 401
         end
     end
 
 
     def destroy
         session[:user_id] = nil
-        render json: {id: nil}
+        render json: current_user, status: 200
     end
 
     def current
-        puts "$$$$$$"
-        puts current_user
-        puts "$$$$$$"
-        render(json: current_user)
+        render json: current_user, status: 200
     end
 end

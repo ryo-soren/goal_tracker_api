@@ -3,51 +3,39 @@ class Api::V1::GoalsController < Api::ApplicationController
     load_and_authorize_resource
 
     def index
-        render(
-            json: @goals.order(:deadline),
-            each_serializer: GoalSerializer
-        )
-    end
- 
-    def show
-        render(json: @goal)
-    end
-    
-    def create
-        @goal.user = User.find(current_user.id)
-        @goal.save!
-        render(json: @goal)
+        Goal.check_and_update_unsuccessful
+        render json: @goals.order(:deadline), status: 200
     end
 
-    def update
-        
+    def show
+        render json: @goal, status: 200
+    end
+
+    def create
+        @goal = Goal.new(goal_params)
+        @goal.user = current_user
+        @goal.save!
+        render json: @goal, status: 201, serializer: GoalSerializer
+    end
+
+    def update 
         if params[:completion]
-            @completion = Completion.create(goal: @goal, user: current_user)
             if @goal.times == params[:done]
                 @goal.successful += 1
                 @goal.save!
             end
+            @completion = Completion.create(goal: @goal, user: current_user)
         end
-        
+
         @goal.update(goal_params)
         @goal.save!
-        render(json:{
-            goal: @goal,
-            completion: @completion
-        })
+        render json: @goal, status: 200
     end
 
     def destroy
-        goal = Goal.find(params[:id])
-        goal.destroy
-        render(
-            json:{
-                status: 200,
-                message: "Goal #{goal.id} deleted successfully"
-            }
-        )
+        @goal.destroy
+        render json: {message: "Goal deleted"}, status: 200
     end
-
     private
 
     def goal_params
